@@ -36,6 +36,7 @@ connection.once("open", () =>
 
 // List of available Routes
 app.use("/roles", require("./routes/Roles"));
+app.use("/auth", require("./routes/Auth"));
 app.use("/users", require("./routes/Users"));
 
 app.listen(port, () => console.log(`Server is running on port: ${port}`));

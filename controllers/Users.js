@@ -21,15 +21,6 @@ exports.update = (req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
-// entity/save
-exports.save = (req, res) => {
-  const newUser = new User(req.body);
-  newUser
-    .save()
-    .then(() => res.json("New user created"))
-    .catch(err => res.status(400).json(`Error: ${err}`));
-};
-
 // entity/:id/destroy
 exports.destroy = (req, res) => {
   User.findByIdAndUpdate(req.params.id, {
