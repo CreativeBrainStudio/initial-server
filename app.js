@@ -3,6 +3,12 @@ const express = require("express"),
   mongoose = require("mongoose");
 require("dotenv").config();
 
+// ENV connection to MongoDB
+mongoose.connect(process.env.ATLAS_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 const app = express();
 const port = process.env.PORT || 5000; // Dynamic port for deployment
 
@@ -23,15 +29,13 @@ app.use(
 );
 app.use(express.json());
 
-// ENV connection to MongoDB
-mongoose.connect(process.env.ATLAS_URI, { useNewUrlParser: true });
-
 const connection = mongoose.connection;
 connection.once("open", () =>
   console.log("MongoDB database connection established successfully")
 );
 
 // List of available Routes
+app.use("/roles", require("./routes/Roles"));
 app.use("/users", require("./routes/Users"));
 
 app.listen(port, () => console.log(`Server is running on port: ${port}`));

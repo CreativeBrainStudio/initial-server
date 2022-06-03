@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema(
       minlength: 5,
     },
     role: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Roles",
     },
     username: {
       type: String,
