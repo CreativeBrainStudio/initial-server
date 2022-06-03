@@ -1,6 +1,7 @@
 const express = require("express"),
   cors = require("cors"),
-  mongoose = require("mongoose");
+  mongoose = require("mongoose"),
+  middleware = require("./middleware");
 require("dotenv").config();
 
 // ENV connection to MongoDB
@@ -38,5 +39,7 @@ connection.once("open", () =>
 app.use("/roles", require("./routes/Roles"));
 app.use("/auth", require("./routes/Auth"));
 app.use("/users", require("./routes/Users"));
+app.use(middleware.notFound);
+app.use(middleware.errorHandler);
 
 app.listen(port, () => console.log(`Server is running on port: ${port}`));
