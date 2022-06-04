@@ -17,7 +17,13 @@ const corsConfig = {
   origin: "http://localhost:3000", // Do not use wildcard
   methods: ["GET", "POST", "PUT", "DELETE"], // List only available methods
   credentials: true, // Must be set to true
-  allowedHeaders: ["Origin", "Content-Type", "X-Requested-With", "Accept"], // Still unclear
+  allowedHeaders: [
+    "Origin",
+    "Content-Type",
+    "X-Requested-With",
+    "Accept",
+    "Authorization",
+  ], // Allowed Headers to be received
 };
 
 app.use(cors(corsConfig)); // Pass configuration to cors

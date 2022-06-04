@@ -1,10 +1,11 @@
 const router = require("express").Router(),
-  users = require("../controllers/Users");
+  users = require("../controllers/Users"),
+  middleware = require("../middleware");
 
 router
-  .get("/", users.browse)
-  .get("/:id/find", users.find)
-  .put("/:id/update", users.update)
-  .delete("/:id/destroy", users.destroy);
+  .get("/", middleware.protect, users.browse)
+  .get("/:id/find", middleware.protect, users.find)
+  .put("/:id/update", middleware.protect, users.update)
+  .delete("/:id/destroy", middleware.protect, users.destroy);
 
 module.exports = router;

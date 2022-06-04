@@ -27,6 +27,9 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 6,
     },
+    token: {
+      type: String,
+    },
     deletedAt: {
       type: String,
     },
