@@ -27,14 +27,12 @@ exports.update = (req, res) => {
 exports.migrate = (req, res) => {
   const roles = [
     {
-      display_name: "Developer",
-      name: "dev",
-    },
-    {
+      _id: "629a98a5a881575c013b5325",
       display_name: "Administrator",
       name: "admin",
     },
     {
+      _id: "629a98a5a881575c013b5326",
       display_name: "Customer",
       name: "customer",
     },
