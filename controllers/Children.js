@@ -1,18 +1,16 @@
 const Children = require("../models/Children");
 
-// entity/;
+// entity/
 exports.browse = (req, res) => {
-  Role.find()
-    .then(roles => res.json(roles))
+  Children.find()
+    .then(items => res.json(items))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
 // entity/:name/find
 exports.find = (req, res) => {
-  Role.find()
-    .then(roles =>
-      res.json(roles.filter(role => role.name === req.params.name)[0])
-    )
+  Children.findOne({ name: req.params.name })
+    .then(item => res.json(item))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
@@ -27,8 +25,8 @@ exports.save = (req, res) => {
 
 // entity/:id/update
 exports.update = (req, res) => {
-  Role.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.json(`${req.params.id} updated successfully`))
+  Children.findByIdAndUpdate(req.params.id, req.body)
+    .then(item => res.json(item))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
@@ -37,6 +35,6 @@ exports.destroy = (req, res) => {
   Children.findByIdAndUpdate(req.params.id, {
     deletedAt: new Date().toLocaleString(),
   })
-    .then(() => res.json(`${req.params.id} deleted successfully`))
+    .then(() => res.json(req.params.id))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };

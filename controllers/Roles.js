@@ -10,7 +10,7 @@ exports.browse = (req, res) => {
 // entity/:name/find
 exports.find = (req, res) => {
   Role.findOne({ name: req.params.name })
-    .then(role => res.json(role))
+    .then(item => res.json(item))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
