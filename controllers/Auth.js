@@ -30,9 +30,7 @@ exports.login = (req, res) => {
 
 // entity/save
 exports.save = (req, res) => {
-  const newUser = new User(req.body);
-  newUser
-    .save()
+  User.create(req.body)
     .then(user => res.json(`${user._id} saved successfully`))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
