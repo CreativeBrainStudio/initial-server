@@ -1,10 +1,10 @@
 const router = require("express").Router(),
-  roles = require("../controllers/Roles");
+  { browse, find, update, migrate } = require("../controllers/Roles");
 
 router
-  .get("/", roles.browse)
-  .get("/:name/find", roles.find)
-  .put("/:id/update", roles.update)
-  .post("/migrate", roles.migrate);
+  .get("/", browse)
+  .get("/:name/find", find)
+  .put("/:id/update", update)
+  .post("/migrate", migrate);
 
 module.exports = router;
