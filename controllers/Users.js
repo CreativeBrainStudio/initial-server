@@ -9,7 +9,7 @@ exports.browse = (req, res) => {
       select: "display_name name",
     })
     .then(users => res.json(users.filter(user => !user.deletedAt)))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/:id/find
@@ -21,14 +21,14 @@ exports.find = (req, res) => {
       select: "display_name name",
     })
     .then(user => res.json(user.deletedAt ? "No user found" : user))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/:id/update
 exports.update = (req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body)
     .then(() => res.json(`${req.params.id} updated successfully`))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/:id/destroy
@@ -37,5 +37,5 @@ exports.destroy = (req, res) => {
     deletedAt: new Date().toLocaleString(),
   })
     .then(() => res.json(`${req.params.id} deleted successfully`))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };

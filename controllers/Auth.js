@@ -25,12 +25,12 @@ exports.login = (req, res) => {
         res.json("E-mail and Password does not match.");
       }
     })
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/save
 exports.save = (req, res) => {
   User.create(req.body)
     .then(user => res.json(`${user._id} saved successfully`))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };

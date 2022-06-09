@@ -3,29 +3,29 @@ const Children = require("../models/Children");
 // entity/
 exports.browse = (req, res) => {
   Children.find()
-    .then(items => res.json(items))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .then(items => res.json(items.filter(item => !item.deletedAt)))
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/:name/find
 exports.find = (req, res) => {
   Children.findOne({ name: req.params.name })
     .then(item => res.json(item))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/save
 exports.save = (req, res) => {
   Children.create(req.body)
     .then(item => res.json(item))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/:id/update
 exports.update = (req, res) => {
   Children.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(item => res.json(item))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
 
 // entity/:id/destroy
@@ -34,5 +34,5 @@ exports.destroy = (req, res) => {
     deletedAt: new Date().toLocaleString(),
   })
     .then(() => res.json(req.params.id))
-    .catch(err => res.status(400).json(`Error: ${err}`));
+    .catch(error => res.status(400).json({ error: error.message }));
 };
