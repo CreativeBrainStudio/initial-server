@@ -39,9 +39,8 @@ exports.migrate = (req, res) => {
   ];
   roles.map(role => {
     const newRole = new Role(role);
-    newRole
-      .save()
-      .then(() => res.json("Role migration created"))
-      .catch(err => res.status(400).json(`Error: ${err}`));
+    newRole.save();
   });
+
+  res.json("Role migration created");
 };
