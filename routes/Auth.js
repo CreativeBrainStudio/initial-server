@@ -1,6 +1,6 @@
 const router = require("express").Router(),
-  auth = require("../controllers/Auth");
+  { login, save } = require("../controllers/Auth");
 
-router.get("/login", auth.login).post("/save", auth.save);
+router.get("/login", login).post("/save", save);
 
 module.exports = router;

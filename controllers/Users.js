@@ -4,6 +4,10 @@ const User = require("../models/Users");
 exports.browse = (req, res) => {
   User.find()
     .select("-password")
+    .populate({
+      path: "roleId",
+      select: "display_name name",
+    })
     .then(users => res.json(users.filter(user => !user.deletedAt)))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
@@ -12,6 +16,10 @@ exports.browse = (req, res) => {
 exports.find = (req, res) => {
   User.findById(req.params.id)
     .select("-password")
+    .populate({
+      path: "roleId",
+      select: "display_name name",
+    })
     .then(user => res.json(user.deletedAt ? "No user found" : user))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };

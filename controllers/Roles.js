@@ -3,23 +3,21 @@ const Role = require("../models/Roles");
 // entity/
 exports.browse = (req, res) => {
   Role.find()
-    .then(roles => res.json(roles))
+    .then(items => res.json(items))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
 // entity/:name/find
 exports.find = (req, res) => {
-  Role.find()
-    .then(roles =>
-      res.json(roles.filter(role => role.name === req.params.name)[0])
-    )
+  Role.findOne({ name: req.params.name })
+    .then(role => res.json(role))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
 // entity/:id/update
 exports.update = (req, res) => {
   Role.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.json(`${req.params.id} updated successfully`))
+    .then(item => res.json(item))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
