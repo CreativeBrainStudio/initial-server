@@ -3,9 +3,9 @@ const router = require("express").Router(),
   { protect } = require("../middleware");
 
 router
-  .get("/", protect, browse)
+  .get("/", browse)
   .get("/:id/find", protect, find)
-  .post("/save", protect, save)
+  .post("/save", save)
   .put("/:id/update", protect, update)
   .delete("/:id/destroy", protect, destroy);
 

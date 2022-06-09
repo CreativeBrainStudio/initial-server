@@ -1,7 +1,10 @@
-const express = require("express"),
-  cors = require("cors"),
-  mongoose = require("mongoose"),
-  middleware = require("./middleware");
+const express = require("express");
+const app = express();
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const middleware = require("./middleware");
 require("dotenv").config();
 
 // ENV connection to MongoDB
@@ -9,9 +12,6 @@ mongoose.connect(process.env.ATLAS_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-const app = express();
-const port = process.env.PORT || 5000; // Dynamic port for deployment
 
 const corsConfig = {
   origin: "http://localhost:3000", // Do not use wildcard
@@ -27,6 +27,7 @@ const corsConfig = {
 };
 
 app.use(cors(corsConfig)); // Pass configuration to cors
+const server = http.createServer(app);
 
 // Used to receive req.body in api
 app.use(
@@ -49,4 +50,17 @@ app.use("/children", require("./routes/Children"));
 app.use(middleware.notFound);
 app.use(middleware.errorHandler);
 
-app.listen(port, () => console.log(`Server is running on port: ${port}`));
+const io = new Server(server, {
+  cors: corsConfig,
+});
+
+io.on("connection", socket => {
+  console.log(`connection established by: ${socket.id}`);
+
+  socket.on("send_children", () => {
+    socket.broadcast.emit("receive_children");
+  });
+});
+
+const port = process.env.PORT || 5000; // Dynamic port for deployment
+server.listen(port, () => console.log(`Server is running on port: ${port}`));
