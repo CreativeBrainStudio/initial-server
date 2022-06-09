@@ -45,6 +45,7 @@ connection.once("open", () =>
 app.use("/roles", require("./routes/Roles"));
 app.use("/auth", require("./routes/Auth"));
 app.use("/users", require("./routes/Users"));
+app.use("/children", require("./routes/Children"));
 app.use(middleware.notFound);
 app.use(middleware.errorHandler);
 
