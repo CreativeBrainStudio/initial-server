@@ -16,16 +16,14 @@ exports.find = (req, res) => {
 
 // entity/save
 exports.save = (req, res) => {
-  const newItem = new Children(req.body);
-  newItem
-    .save()
+  Children.create(req.body)
     .then(item => res.json(item))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
 
 // entity/:id/update
 exports.update = (req, res) => {
-  Children.findByIdAndUpdate(req.params.id, req.body)
+  Children.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(item => res.json(item))
     .catch(err => res.status(400).json(`Error: ${err}`));
 };
