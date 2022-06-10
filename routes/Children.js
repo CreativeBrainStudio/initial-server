@@ -1,12 +1,11 @@
 const router = require("express").Router(),
-  { browse, find, save, update, destroy } = require("../controllers/Children"),
-  { protect } = require("../middleware");
+  { browse, find, save, update, destroy } = require("../controllers/Children");
 
 router
   .get("/", browse)
-  .get("/:id/find", protect, find)
+  .get("/:status/find", find)
   .post("/save", save)
-  .put("/:id/update", protect, update)
-  .delete("/:id/destroy", protect, destroy);
+  .put("/:id/update", update)
+  .delete("/:id/destroy", destroy);
 
 module.exports = router;

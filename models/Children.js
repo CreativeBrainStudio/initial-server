@@ -14,6 +14,12 @@ const childSchema = new mongoose.Schema(
       trim: true,
       minlength: 5,
     },
+    status: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 5,
+    },
     deletedAt: {
       type: String,
     },
@@ -22,6 +28,10 @@ const childSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+childSchema.query.byStatus = function (status) {
+  return this.where({ status: new RegExp(status, "i") });
+};
 
 const Children = mongoose.model("Children", childSchema);
 

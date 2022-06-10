@@ -7,11 +7,13 @@ exports.browse = (req, res) => {
     .catch(error => res.status(400).json({ error: error.message }));
 };
 
-// entity/:name/find
+// entity/:status/find
 exports.find = (req, res) => {
-  Children.findOne({ name: req.params.name })
+  Children.find()
+    .byStatus(req.params.status)
     .then(item => res.json(item))
     .catch(error => res.status(400).json({ error: error.message }));
+  // Children.findOne({ name: req.params.name });
 };
 
 // entity/save
