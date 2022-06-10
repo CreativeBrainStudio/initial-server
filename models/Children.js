@@ -2,7 +2,13 @@ const mongoose = require("mongoose");
 
 const childSchema = new mongoose.Schema(
   {
-    name: {
+    fname: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 5,
+    },
+    lname: {
       type: String,
       required: true,
       trim: true,
@@ -32,6 +38,10 @@ const childSchema = new mongoose.Schema(
 childSchema.query.byStatus = function (status) {
   return this.where({ status: new RegExp(status, "i") });
 };
+
+childSchema.virtual("fullName").get(function () {
+  return `${this.fname} ${this.lname}`;
+});
 
 const Children = mongoose.model("Children", childSchema);
 
