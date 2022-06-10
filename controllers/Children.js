@@ -11,7 +11,7 @@ exports.browse = (req, res) => {
 exports.find = (req, res) => {
   Children.find()
     .byStatus(req.params.status)
-    .then(item => res.json(item))
+    .then(items => res.json(items.filter(item => !item.deletedAt)))
     .catch(error => res.status(400).json({ error: error.message }));
   // Children.findOne({ name: req.params.name });
 };

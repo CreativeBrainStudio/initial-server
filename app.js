@@ -4,7 +4,6 @@ const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const middleware = require("./middleware");
 require("dotenv").config();
 
 // ENV connection to MongoDB
@@ -42,25 +41,14 @@ connection.once("open", () =>
   console.log("MongoDB database connection established successfully")
 );
 
-// List of available Routes
-app.use("/roles", require("./routes/Roles"));
-app.use("/auth", require("./routes/Auth"));
-app.use("/users", require("./routes/Users"));
-app.use("/children", require("./routes/Children"));
-app.use(middleware.notFound);
-app.use(middleware.errorHandler);
+// Routes
+require("./routes")(app);
 
 const io = new Server(server, {
-  cors: corsConfig,
+  cors: corsConfig, // Pass configuration to websocket
 });
 
-io.on("connection", socket => {
-  console.log(`connection established by: ${socket.id}`);
-
-  socket.on("send_children", () => {
-    socket.broadcast.emit("receive_children");
-  });
-});
+require("./config/socket")(io);
 
 const port = process.env.PORT || 5000; // Dynamic port for deployment
 server.listen(port, () => console.log(`Server is running on port: ${port}`));

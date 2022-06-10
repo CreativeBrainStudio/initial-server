@@ -6,13 +6,15 @@ const childSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      minlength: 5,
+    },
+    mname: {
+      type: String,
+      trim: true,
     },
     lname: {
       type: String,
       required: true,
       trim: true,
-      minlength: 5,
     },
     address: {
       type: String,
@@ -25,6 +27,10 @@ const childSchema = new mongoose.Schema(
       required: true,
       trim: true,
       minlength: 5,
+      enum: {
+        values: ["pending", "approved", "denied"],
+        message: "{VALUE} is not supported",
+      },
     },
     deletedAt: {
       type: String,
@@ -38,10 +44,6 @@ const childSchema = new mongoose.Schema(
 childSchema.query.byStatus = function (status) {
   return this.where({ status: new RegExp(status, "i") });
 };
-
-childSchema.virtual("fullName").get(function () {
-  return `${this.fname} ${this.lname}`;
-});
 
 const Children = mongoose.model("Children", childSchema);
 

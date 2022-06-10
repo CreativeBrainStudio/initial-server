@@ -22,7 +22,7 @@ exports.login = (req, res) => {
           res.json(userData);
         }
       } else {
-        res.json("E-mail and Password does not match.");
+        res.json({ error: "E-mail and Password does not match." });
       }
     })
     .catch(error => res.status(400).json({ error: error.message }));
