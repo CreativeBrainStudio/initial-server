@@ -3,8 +3,49 @@ const mongoose = require("mongoose"),
 
 const userSchema = new mongoose.Schema(
   {
-    fullName: {},
-    address: {},
+    fullName: {
+      fname: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      mname: {
+        type: String,
+        trim: true,
+      },
+      lname: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      suffix: {
+        type: String,
+        enum: {
+          values: ["", "JR", "SR", "III", "IV", "V"],
+          message: "{VALUE} is not supported",
+        },
+      },
+    },
+    address: {
+      region: {
+        type: String,
+        required: true,
+      },
+      province: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      barangay: {
+        type: String,
+      },
+      street: {
+        type: String,
+      },
+    },
     mobile: {
       type: String,
       minlength: 10,

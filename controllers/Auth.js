@@ -7,7 +7,6 @@ exports.login = (req, res) => {
 
   User.findOne({ email })
     .then(async user => {
-      console.log(user);
       if (user && (await user.matchPassword(password))) {
         if (user.deletedAt) {
           res.json({ error: "Your account has been banned" });
