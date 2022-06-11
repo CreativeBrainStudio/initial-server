@@ -30,6 +30,16 @@ const socket = io => {
 
     // Children collection
     socket.on("send_children", () => socket.broadcast.emit("receive_children"));
+
+    // send stream
+    socket.on("send_stream", data => {
+      socket.broadcast.emit("send_stream", data);
+    });
+
+    // receive stream
+    socket.on("receive_stream", data => {
+      socket.broadcast.emit("receive_stream", data);
+    });
   });
 };
 
