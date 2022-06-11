@@ -3,6 +3,12 @@ const mongoose = require("mongoose"),
 
 const userSchema = new mongoose.Schema(
   {
+    fullName: {},
+    address: {},
+    mobile: {
+      type: String,
+      minlength: 10,
+    },
     email: {
       type: String,
       unique: true,
