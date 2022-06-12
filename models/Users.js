@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
       suffix: {
         type: String,
         enum: {
-          values: ["", "JR", "SR", "III", "IV", "V"],
+          values: ["NONE", "JR", "SR", "III", "IV", "V"],
           message: "{VALUE} is not supported",
         },
       },
@@ -48,7 +48,6 @@ const userSchema = new mongoose.Schema(
     },
     mobile: {
       type: String,
-      minlength: 10,
     },
     email: {
       type: String,
@@ -73,6 +72,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
       minlength: 6,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
     },
     token: {
       type: String,
