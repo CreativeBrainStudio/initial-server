@@ -1,5 +1,11 @@
 const router = require("express").Router(),
-  { browse, find, update, destroy } = require("../controllers/Users"),
+  {
+    browse,
+    find,
+    update,
+    destroy,
+    changePassword,
+  } = require("../controllers/Users"),
   { protect } = require("../middleware");
 
 router
