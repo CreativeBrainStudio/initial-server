@@ -26,11 +26,7 @@ exports.find = (req, res) => {
 
 // entity/:id/update
 exports.update = (req, res) => {
-  User.findByIdAndUpdate(
-    req.params.id,
-    { $set: { ...req.body } },
-    { new: true }
-  )
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .select("-password")
     .populate({
       path: "roleId",

@@ -39,7 +39,6 @@ exports.save = (req, res) => {
     .then(user => res.json(`${user._id} saved successfully`))
     .catch(error => res.status(400).json({ error: error.message }));
 };
-
 // entity/changepassword
 exports.changePassword = (req, res) => {
   const { email, password, oldPassword } = req.body;
