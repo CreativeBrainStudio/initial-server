@@ -26,8 +26,17 @@ exports.find = (req, res) => {
 
 // entity/:id/update
 exports.update = (req, res) => {
-  User.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.json(`${req.params.id} updated successfully`))
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $set: { ...req.body } },
+    { new: true }
+  )
+    .select("-password")
+    .populate({
+      path: "roleId",
+      select: "display_name name",
+    })
+    .then(item => res.json(item))
     .catch(error => res.status(400).json({ error: error.message }));
 };
 
