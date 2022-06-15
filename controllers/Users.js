@@ -26,7 +26,7 @@ exports.find = (req, res) => {
 
 // entity/:id/update
 exports.update = (req, res) => {
-  User.findByIdAndUpdate(req.params.id, req.body)
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(() => res.json(`${req.params.id} updated successfully`))
     .catch(error => res.status(400).json({ error: error.message }));
 };

@@ -8,7 +8,7 @@ const socket = io => {
     socket.on("leaveCall", () => socket.broadcast.emit("callEnded"));
 
     socket.on("callUser", data =>
-      io.to(data.userToCall).emit("callUser", {
+      io.emit("callUser", {
         signal: data.signalData,
         from: data.from,
         name: data.name,
@@ -33,7 +33,7 @@ const socket = io => {
 
     // send stream
     socket.on("send_stream", data => {
-      socket.broadcast.emit("send_stream", data);
+      socket.broadcast.emit("get_stream", data);
     });
 
     // receive stream
