@@ -40,6 +40,13 @@ const socket = io => {
     socket.on("receive_stream", data => {
       socket.broadcast.emit("receive_stream", data);
     });
+
+    // Candle Bet
+    socket.on("join_room", room => socket.join(room));
+
+    socket.on("send_bnbusd1m_status", data =>
+      socket.to(data.roomId).emit("receive_bnbusd1m_status", data)
+    ); // Sending candle bnbusd1m start
   });
 };
 
